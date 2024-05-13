@@ -10,7 +10,7 @@ const ExpenseList = (props) => {
   const [expenses, setExpenses] = useState([]);
   
   function handleDelete(index) {
-    console.log("delete", index);
+    //console.log("delete", index);
     props.deleteExpense(index);
   }
 

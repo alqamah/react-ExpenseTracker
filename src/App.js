@@ -13,10 +13,19 @@ function App() {
     setExpenses((prevExpenses) => {
       return [expenseData,...prevExpenses];
     });
-    console.log("added(APP)",expenseData);
+    console.log("added (app) ",expenseData);
   }
 
   // Create function to delete an expense
+  function deleteExpense(index){
+    console.log("delete (app) ",index);
+    setExpenses((prevExpenses) => {
+      return [
+       ...prevExpenses.slice(0, index),
+       ...prevExpenses.slice(index + 1)
+      ];
+    });
+  }
 
   return (
     <>
@@ -25,7 +34,7 @@ function App() {
         <ExpenseForm addExpenseHandler={addExpenseHandler} />
         <div className="expenseContainer">
           <ExpenseInfo expenses={expenses} />
-          <ExpenseList expenses={expenses} />
+          <ExpenseList deleteExpense={deleteExpense} expenses={expenses} />
         </div>
       </div>
     </>

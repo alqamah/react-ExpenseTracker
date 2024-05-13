@@ -13,15 +13,11 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: center;
   gap: 0.5rem;
   height: 100%;
 }
 
 .transactionList li {
   list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 0.5rem;
 }

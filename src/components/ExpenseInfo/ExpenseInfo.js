@@ -14,7 +14,9 @@ export default function ExpenseInfo(props) {
       loss+=expenses[i].amount;
     }
   }
-  total=profit-loss;
+  loss = loss*-1;
+  total=profit-loss; 
+  console.log(total);
 
 
     return (

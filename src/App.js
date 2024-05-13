@@ -44,7 +44,7 @@ export default class App extends React.Component {
           <div className="expenseContainer">
             {/* Render Expense Info here
             Render Expense List here */}
-            <ExpenseInfo/>
+            <ExpenseInfo expenses={this.state.expenses}/>
             <ExpenseList tx={this.state.expenses}/>
             
           </div>

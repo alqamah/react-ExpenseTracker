@@ -7,7 +7,14 @@ import "./App.css";
 function App() {
   const [expenses, setExpenses] = useState([]);
 
-  // Create function to add an expense
+  // Function to add an expense
+  function addExpenseHandler(expenseData) {
+    // Add expense to the state
+    setExpenses((prevExpenses) => {
+      return [expenseData,...prevExpenses];
+    });
+    console.log("added(APP)",expenseData);
+  }
 
   // Create function to delete an expense
 
@@ -15,7 +22,7 @@ function App() {
     <>
       <h2 className="mainHeading">Expense Tracker</h2>
       <div className="App">
-        <ExpenseForm />
+        <ExpenseForm addExpenseHandler={addExpenseHandler} />
         <div className="expenseContainer">
           <ExpenseInfo expenses={expenses} />
           <ExpenseList expenses={expenses} />

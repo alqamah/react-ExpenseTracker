@@ -18,7 +18,7 @@ const Transaction = ({ expense, index }) => {
         setCurrentHoverIndex(null);
       }}
     >
-      <div>{expense.text}</div>
+      <div>{expense.title}</div>
       <div className={styles.transactionOptions}>
         <div
           className={`${styles.amount} ${

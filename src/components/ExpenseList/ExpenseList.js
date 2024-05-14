@@ -4,6 +4,7 @@ import Transaction from "../Transaction/Transaction";
 
 const ExpenseList = ({ expenses, deleteExpense, changeExpenseToUpdate }) => {
   return (
+    //console.log("Expense List:",expenses),
     <div className={styles.expenseListContainer}>
       <h3>Transactions</h3>
       <ul className={styles.transactionList}>

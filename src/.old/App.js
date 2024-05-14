@@ -7,34 +7,24 @@ import "./App.css";
 function App() {
   const [expenses, setExpenses] = useState([]);
 
-  // Function to add an expense
-  function addExpenseHandler(expenseData) {
-    // Add expense to the state
-    setExpenses((prevExpenses) => {
-      return [expenseData,...prevExpenses];
-    });
-    console.log("added (app) ",expenseData);
-  }
+  const addExpense = (expense) => {
+    setExpenses((prevState) => [expense, ...prevState]);
+  };
 
-  // Create function to delete an expense
-  function deleteExpense(index){
-    console.log("delete (app) ",index);
+  const deleteExpense = (id) => {
     setExpenses((prevExpenses) => {
-      return [
-       ...prevExpenses.slice(0, index),
-       ...prevExpenses.slice(index + 1)
-      ];
+      return prevExpenses.filter((expense) => expense.id !== id);
     });
-  }
+  };
 
   return (
     <>
       <h2 className="mainHeading">Expense Tracker</h2>
       <div className="App">
-        <ExpenseForm addExpenseHandler={addExpenseHandler} />
+        <ExpenseForm addExpense={addExpense} />
         <div className="expenseContainer">
           <ExpenseInfo expenses={expenses} />
-          <ExpenseList deleteExpense={deleteExpense} expenses={expenses} />
+          <ExpenseList expenses={expenses} deleteExpense={deleteExpense} />
         </div>
       </div>
     </>

@@ -1,21 +1,31 @@
-import { useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./ExpenseForm.module.css";
 
-const ExpenseForm = (props) => {
+const ExpenseForm = ({ addExpense }) => {
   const expenseTextInput = useRef();
   const expenseAmountInput = useRef();
 
-  const [transaction, setTransaction] = useState({title: "", amount: 0});
-
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    // Logic to add expense
-    setTransaction({title: expenseTextInput.current.value, amount: expenseAmountInput.current.value});
-    //console.log(transaction);
-    props.addExpenseHandler(transaction);
+    const expenseText = expenseTextInput.current.value;
+    const expenseAmount = expenseAmountInput.current.value;
+    if (parseInt(expenseAmount) === 0) {
+      return;
+    }
+
+    const expense = {
+      text: expenseText,
+      amount: expenseAmount,
+      id: new Date().getTime()
+    };
+    addExpense(expense);
+    clearInput();
+    return;
+  };
+
+  const clearInput = () => {
+    expenseAmountInput.current.value = "";
     expenseTextInput.current.value = "";
-    expenseAmountInput.current.value = "";    
-    expenseTextInput.current.focus();
   };
 
   return (
@@ -26,9 +36,8 @@ const ExpenseForm = (props) => {
         id="expenseText"
         className={styles.input}
         type="text"
-        ref = {expenseTextInput}
         placeholder="Enter text..."
-        onChange={e => setTransaction({...transaction, title: e.target.value})}
+        ref={expenseTextInput}
         required
       />
       <div>
@@ -39,9 +48,8 @@ const ExpenseForm = (props) => {
         className={styles.input}
         id="expenseAmount"
         type="number"
-        ref = {expenseAmountInput}
         placeholder="Enter amount..."
-        onChange={e => setTransaction({...transaction, amount: e.target.value})}
+        ref={expenseAmountInput}
         required
       />
       <button className={styles.submitBtn}>Add Transaction</button>

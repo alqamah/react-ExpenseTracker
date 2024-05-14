@@ -5,36 +5,18 @@ import ExpenseList from "./components/ExpenseList/ExpenseList";
 import "./App.css";
 
 function App() {
+  // Remove the useState hook and replace it with useReducer hook
+  // Implement the functionality to add and remove the transaction in reducer function
   const [expenses, setExpenses] = useState([]);
-
-  // Function to add an expense
-  function addExpenseHandler(expenseData) {
-    // Add expense to the state
-    setExpenses((prevExpenses) => {
-      return [expenseData,...prevExpenses];
-    });
-    console.log("added (app) ",expenseData);
-  }
-
-  // Create function to delete an expense
-  function deleteExpense(index){
-    console.log("delete (app) ",index);
-    setExpenses((prevExpenses) => {
-      return [
-       ...prevExpenses.slice(0, index),
-       ...prevExpenses.slice(index + 1)
-      ];
-    });
-  }
 
   return (
     <>
       <h2 className="mainHeading">Expense Tracker</h2>
       <div className="App">
-        <ExpenseForm addExpenseHandler={addExpenseHandler} />
+        <ExpenseForm />
         <div className="expenseContainer">
           <ExpenseInfo expenses={expenses} />
-          <ExpenseList deleteExpense={deleteExpense} expenses={expenses} />
+          <ExpenseList expenses={expenses} />
         </div>
       </div>
     </>

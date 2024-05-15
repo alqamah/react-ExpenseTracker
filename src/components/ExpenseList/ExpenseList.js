@@ -2,9 +2,8 @@ import React from "react";
 import styles from "./ExpenseList.module.css";
 import Transaction from "../Transaction/Transaction";
 
-const ExpenseList = ({ expenses, deleteExpense, changeExpenseToUpdate }) => {
+const ExpenseList = ({ expenses, deleteExpense, editExpense }) => {
   return (
-    //console.log("Expense List:",expenses),
     <div className={styles.expenseListContainer}>
       <h3>Transactions</h3>
       <ul className={styles.transactionList}>
@@ -15,7 +14,8 @@ const ExpenseList = ({ expenses, deleteExpense, changeExpenseToUpdate }) => {
               key={expense.id}
               expense={expense}
               deleteExpense={deleteExpense}
-              changeExpenseToUpdate={changeExpenseToUpdate}
+              //Pass props here to handle updation
+              editExpense={editExpense}
             />
           );
         })}

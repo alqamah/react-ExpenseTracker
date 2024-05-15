@@ -1,9 +1,27 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./ExpenseForm.module.css";
 
-const ExpenseForm = (props) => {
+const ExpenseForm = ({ 
+  addExpense,
+  editExpenseId,
+  editExpenseText,
+  editExpenseAmount,
+  resetEditExpense
+}) => {
   const expenseTextInput = useRef();
   const expenseAmountInput = useRef();
+
+  // Use the useEffect hook here, to check if an expense is to be updated
+  // If yes, then autofill the form values with the text and amount of the expense
+
+  useEffect(() => {
+    if (editExpenseId !== null) {
+      //console.log("editCLICK",editExpenseId, editExpenseText, editExpenseAmount);
+      expenseTextInput.current.value = editExpenseText;
+      expenseAmountInput.current.value = editExpenseAmount;
+    }
+  },[editExpenseId, editExpenseText, editExpenseAmount]);
+
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -16,22 +34,24 @@ const ExpenseForm = (props) => {
     const expense = {
       text: expenseText,
       amount: expenseAmount,
-      id: new Date().getTime()
+      id: editExpenseId || new Date().getTime(),
     };
-    // Add expense here
-    props.addExpense(expense);
+    addExpense(expense);
     clearInput();
     return;
+
+    // Logic to update expense here
   };
 
   const clearInput = () => {
     expenseAmountInput.current.value = "";
     expenseTextInput.current.value = "";
+    resetEditExpense();
   };
 
   return (
     <form className={styles.form} onSubmit={onSubmitHandler}>
-      <h3>Add new transaction</h3>
+      <h3>{editExpenseId ? "Edit Transaction" : "Add new transaction"}</h3>
       <label htmlFor="expenseText">Text</label>
       <input
         id="expenseText"
@@ -53,7 +73,9 @@ const ExpenseForm = (props) => {
         ref={expenseAmountInput}
         required
       />
-      <button className={styles.submitBtn}>Add Transaction</button>
+      <button className={styles.submitBtn}>
+        {editExpenseId ? "Edit Transaction" : "Add Transaction"}
+      </button>
     </form>
   );
 };
